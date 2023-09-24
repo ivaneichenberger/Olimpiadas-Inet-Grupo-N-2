@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-09-2023 a las 00:18:30
+-- Tiempo de generación: 24-09-2023 a las 22:03:05
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -149,7 +149,8 @@ INSERT INTO `pacientes` (`ID_Paciente`, `Nombre`, `Apellido`, `Fecha_Nacimiento`
 (14, 'Victoria', 'Mendoza', '1982-07-03', 'Femenino', '567 Calle Feliz', '555-444-5555', 'Historial médico de Victoria', 21, NULL, NULL),
 (15, 'Javier', 'Ortega', '1999-08-19', 'Masculino', '678 Calle Radiante', '555-555-6666', 'Historial médico de Javier', 22, NULL, NULL),
 (16, 'Camila', 'Silva', '1976-01-30', 'Femenino', '890 Calle Brillante', '555-666-7777', 'Historial médico de Camila', 23, NULL, NULL),
-(17, 'Daniel', 'Rodríguez', '1990-06-14', 'Masculino', '321 Calle Tranquila', '555-888-9999', 'Historial médico de Daniel', 24, NULL, NULL);
+(17, 'Daniel', 'Rodríguez', '1990-06-14', 'Masculino', '321 Calle Tranquila', '555-888-9999', 'Historial médico de Daniel', 24, NULL, NULL),
+(259, 'Ivan', 'Falcon', '2023-09-06', 'Masculino', NULL, '3794136245', 'Info Medica de Ivan', 2, NULL, '46458830');
 
 -- --------------------------------------------------------
 
@@ -159,19 +160,19 @@ INSERT INTO `pacientes` (`ID_Paciente`, `Nombre`, `Apellido`, `Fecha_Nacimiento`
 
 CREATE TABLE `registro_eventos` (
   `ID_Evento` int(11) NOT NULL,
-  `Tipo_Evento` varchar(50) DEFAULT NULL,
-  `Fecha_Hora_Evento` datetime DEFAULT NULL,
-  `Descripcion_Evento` text DEFAULT NULL,
-  `ID_Usuario_Activador` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `Tipo_Evento` varchar(200) NOT NULL,
+  `Fecha_Hora_Evento` date NOT NULL,
+  `ID_Paciente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `registro_eventos`
 --
 
-INSERT INTO `registro_eventos` (`ID_Evento`, `Tipo_Evento`, `Fecha_Hora_Evento`, `Descripcion_Evento`, `ID_Usuario_Activador`) VALUES
-(1, 'Código Azul', '2023-09-13 08:30:00', 'Activación de código azul en la sala de emergencias.', 1),
-(2, 'Emergencia', '2023-09-13 09:45:00', 'Emergencia médica en la Unidad de Terapia Intensiva.', 2);
+INSERT INTO `registro_eventos` (`ID_Evento`, `Tipo_Evento`, `Fecha_Hora_Evento`, `ID_Paciente`) VALUES
+(3, 'Codigo Azul', '2023-09-24', 7),
+(10, 'Codigo Azul', '2023-09-24', 8),
+(11, 'Codigo Azul', '2023-09-24', 8);
 
 -- --------------------------------------------------------
 
@@ -257,8 +258,7 @@ ALTER TABLE `pacientes`
 -- Indices de la tabla `registro_eventos`
 --
 ALTER TABLE `registro_eventos`
-  ADD PRIMARY KEY (`ID_Evento`),
-  ADD KEY `ID_Usuario_Activador` (`ID_Usuario_Activador`);
+  ADD PRIMARY KEY (`ID_Evento`);
 
 --
 -- Indices de la tabla `users`
@@ -302,13 +302,13 @@ ALTER TABLE `enfermeros`
 -- AUTO_INCREMENT de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `ID_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=257;
+  MODIFY `ID_Paciente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=260;
 
 --
 -- AUTO_INCREMENT de la tabla `registro_eventos`
 --
 ALTER TABLE `registro_eventos`
-  MODIFY `ID_Evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Evento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -338,12 +338,6 @@ ALTER TABLE `doctores`
 --
 ALTER TABLE `enfermeros`
   ADD CONSTRAINT `enfermeros_ibfk_1` FOREIGN KEY (`ID_Paciente`) REFERENCES `pacientes` (`ID_Paciente`);
-
---
--- Filtros para la tabla `registro_eventos`
---
-ALTER TABLE `registro_eventos`
-  ADD CONSTRAINT `registro_eventos_ibfk_1` FOREIGN KEY (`ID_Usuario_Activador`) REFERENCES `usuarios` (`ID_Usuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
