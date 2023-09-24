@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Formulario de Registro de Eventos</title>
+    <link rel="stylesheet" href="../php/style.css">
     <link rel="icon" href="../imagenes/icono.png">
-    <title>Codigo Azul</title>
 </head>
 <body>
-        <button><a href="../php-login/index.php">Atras</a></button>
-        <a href="">Enviar codigo azul</a>
+    <form action="procesar_registro.php" method="post">
+    <label for="id_paciente">ID del Paciente:</label>
+        <input type="number" id="id_paciente" name="ID_Paciente" required>
+        <input type="submit" value="Registrar Evento">
+    </form>
 </body>
 </html>

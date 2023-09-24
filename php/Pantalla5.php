@@ -1,15 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>Mostrar Eventos</title>
+    <link rel="stylesheet" href="../php/style.css">
     <link rel="icon" href="../imagenes/icono.png">
-    <title>Codigo Azul</title>
 </head>
 <body>
-    <button><a href="../php-login/index.php">Atras</a></button>
-    <H1>TABLA DE EMERGENCIAS DE PACIENTES</H1>
+    <h1>Eventos Registrados</h1>
+
+    <?php
+    include '../php-login/database.php';
+
+    $sql = "SELECT * FROM registro_eventos";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $eventos = $stmt->fetchAll();
+
+    if (count($eventos) > 0) {
+        echo '<table border="1">';
+        echo '<tr><th>ID Evento</th><th>Tipo de Evento</th><th>Fecha y Hora del Evento</th><th>ID Paciente</th></tr>';
+        foreach ($eventos as $evento) {
+            echo '<tr>';
+            echo '<td>' . $evento['ID_Evento'] . '</td>';
+            echo '<td>' . $evento['Tipo_Evento'] . '</td>';
+            echo '<td>' . $evento['Fecha_Hora_Evento'] . '</td>';
+            echo '<td>' . $evento['ID_Paciente'] . '</td>';
+            echo '</tr>';
+            
+        }
+        echo '</table>';
+    } else {
+        echo "No se encontraron eventos registrados.";
+    }
+
+    $conn = null;
+    ?>
 </body>
 </html>
